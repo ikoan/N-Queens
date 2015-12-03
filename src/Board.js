@@ -153,31 +153,35 @@
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
       //take in a column index 
       var colIndex = majorDiagonalColumnIndexAtFirstRow;
-
-      //find the queen in the given column 
       var rowLength = this.rows().length;
-      //iterate through the board
+      var count = 0;
+      //loop through each row
       for(var i = 0; i < rowLength; i++){
-        //
+        //if 'index' element at each row is 1
+        if(this.get(i)[colIndex] === 1){
+          count++;
+          //add to count variable
+        }
+        //increment index variable 
+        colIndex += 1;
       }
-
-      //go up every row that's above
-
-
-        //go to the index that is always 1 less than the column that was passed on every row. 
-        //if in on that index, a queen is found, we return true
-        
-      //go down down every that's below row   
-        //go to the index that is always 1 more than the column that was passed on every row. 
-        //if in on that index, a queen is found, we return true
-
-
+      //check if count is greater than 1
+      if(count > 1){
+        return true;
+      }
       return false; 
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      var rowLength = this.rows().length;
+      //from negative row length to positive row length
+      for(var i = rowLength * -1; i < rowLength; i++){
+        if(this.hasMajorDiagonalConflictAt(i) === true){
+          return true;
+        }
+      }
+      return false; 
     },
 
 
@@ -187,12 +191,37 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      //take in a column index 
+      var colIndex = minorDiagonalColumnIndexAtFirstRow;
+      var rowLength = this.rows().length;
+      var count = 0;
+      //loop through each row
+      for(var i = 0; i < rowLength; i++){
+        //if 'index' element at each row is 1
+        if(this.get(i)[colIndex] === 1){
+          count++;
+          //add to count variable
+        }
+        //increment index variable 
+        colIndex -= 1;
+      }
+      //check if count is greater than 1
+      if(count > 1){
+        return true;
+      }
+      return false; 
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      var rowLength = this.rows().length;
+      //from negative row length to positive row length
+      for(var i = 0; i < rowLength * 2; i++){
+        if(this.hasMinorDiagonalConflictAt(i) === true){
+          return true;
+        }
+      }
+      return false; 
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
